@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roblox Cheat Vehicle Legend</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #ff69b4, #ffffff 50%);
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 30px;
+      color: #ff1493;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+      animation: rgbPulse 3s infinite alternate;
+    }
+
+    .logo {
+      width: 100px;
+      margin-top: 20px;
+    }
+
+    .container {
+      margin-top: 30px;
+      border: 3px solid rgba(255, 255, 255, 0.5);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      animation: rgbPulse 5s infinite alternate;
+    }
+
+    .button {
+      display: block;
+      width: 250px;
+      margin: 20px auto;
+      padding: 15px;
+      border: none;
+      font-size: 18px;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: transform 0.2s ease-in-out;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(to right, #ff1493, #3498db);
+      animation: rgbPulse 2s infinite alternate;
+    }
+
+    .subscribe-btn:hover, .get-script-btn.unlocked:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(to right, #ff1493, #8e44ad);
+    }
+
+    .subscribe-btn img {
+      width: 24px;
+      margin-right: 10px;
+    }
+
+    .get-script-btn {
+      background-color: grey;
+      cursor: not-allowed;
+      opacity: 0.6;
+      transition: background-color 0.3s ease, opacity 0.3s ease;
+    }
+
+    .get-script-btn.unlocked {
+      background-color: purple;
+      cursor: pointer;
+      opacity: 1;
+      animation: rgbPulse 2s infinite alternate;
+    }
+
+    .get-script-btn.unlocked:hover {
+      background-color: #8e44ad;
+    }
+
+    .timer {
+      font-size: 24px;
+      color: #e74c3c;
+      margin-top: 20px;
+      animation: rgbPulse 3s infinite alternate;
+    }
+
+    .provider {
+      font-size: 20px;
+      color: black;
+      margin-top: 30px;
+      font-style: italic;
+      font-weight: bold;
+      animation: rgbPulse 5s infinite alternate;
+    }
+
+    /* RGB animation effect */
+    @keyframes rgbPulse {
+      0% {
+        color: red;
+      }
+      25% {
+        color: yellow;
+      }
+      50% {
+        color: green;
+      }
+      75% {
+        color: cyan;
+      }
+      100% {
+        color: blue;
+      }
+    }
+
+    /* Shake animation for the "Get Script" button */
+    @keyframes shake {
+      0% {
+        transform: translateX(0);
+      }
+      25% {
+        transform: translateX(-5px);
+      }
+      50% {
+        transform: translateX(5px);
+      }
+      75% {
+        transform: translateX(-5px);
+      }
+      100% {
+        transform: translateX(5px);
+      }
+    }
+
+    /* Apply shaking animation */
+    .shake {
+      animation: shake 0.5s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <h1>Roblox Cheat: Vehicle Legend</h1>
+
+  <div class="container">
+    <button class="button subscribe-btn" onclick="subscribe()">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube Logo">
+      Subscribe
+    </button>
+    <button class="button get-script-btn" id="getScriptBtn" disabled onclick="shakeButton()">Get Script</button>
+    <div id="timer" class="timer"></div>
+  </div>
+
+  <div class="provider">
+    <p>Provider: <strong>knocker_san</strong></p>
+  </div>
+
+  <script>
+    const getScriptBtn = document.getElementById('getScriptBtn');
+    const timerDisplay = document.getElementById('timer');
+    let countdown;
+    let isSubscribed = false; // Track if the user has subscribed
+
+    function subscribe() {
+      // Redirect to the YouTube link
+      window.open('https://youtube.com/@knocker_san?si=sfiICxFdEcL4lBvv', '_blank');
+      isSubscribed = true; // Mark as subscribed
+
+      // Show the timer countdown and start it
+      let timeRemaining = 10;
+      timerDisplay.textContent = `Wait for ${timeRemaining} seconds...`;
+
+      countdown = setInterval(() => {
+        timeRemaining--;
+        timerDisplay.textContent = `Wait for ${timeRemaining} seconds...`;
+
+        if (timeRemaining <= 0) {
+          clearInterval(countdown);
+          enableGetScriptButton();
+        }
+      }, 1000);
+    }
+
+    function enableGetScriptButton() {
+      // Enable and style the "Get Script" button after the timer ends
+      if (isSubscribed) {
+        getScriptBtn.disabled = false;
+        getScriptBtn.classList.add('unlocked');
+        timerDisplay.textContent = 'Timer done! You can now get the script!';
+      } else {
+        timerDisplay.textContent = 'Please subscribe first!';
+      }
+    }
+
+    function shakeButton() {
+      if (!isSubscribed) {
+        // If the user has not subscribed, shake the button
+        getScriptBtn.classList.add('shake');
+        setTimeout(() => {
+          getScriptBtn.classList.remove('shake'); // Reset shake
+        }, 500); // Duration of shake
+      } else {
+        // Redirect to the pastebin link if subscribed
+        window.location.href = 'https://pastebin.com/1pXL3QKX';
+      }
+    }
+
+    getScriptBtn.addEventListener('click', () => {
+      if (!getScriptBtn.disabled && isSubscribed) {
+        // Redirect to the pastebin link
+        window.location.href = 'https://pastebin.com/1pXL3QKX';
+      }
+    });
+  </script>
+</body>
+</html>
